@@ -18,10 +18,15 @@ double GetEC_dSM(void);     dS/m単位でのECを返す
 
 使い方
 ES-2の接続は
+
 Ground - ArduinoのGNDピン
+
 DATA - 任意のArduinoのデジタル入力ピンに直接接続
+
 Power - PNPトランジスタのコレクタ出力など5V出力可能なデバイス
+
 トランジスタのbaseピン - 抵抗 - Arduinoのデジタル出力ピン
+
 
 Setup関数内でbegin(int datapin,int powerpin,bool powermode)関数を実行します。
 datapinにDATAを接続したピン番号
