@@ -16,7 +16,6 @@ Arduinoのバスでは5Vの機種でも電力が微妙に足りないので通�
 double GetEC_uScM(void);    uS/cm単位でのECを返す
 double GetEC_dSM(void);     dS/m単位でのECを返す
 
-使い方
 ES-2の接続は
 
 Ground - ArduinoのGNDピン
@@ -32,17 +31,24 @@ Setup関数内でbegin(int datapin,int powerpin,bool powermode)関数を実行�
 datapinにDATAを接続したピン番号
 powerpinには電源制御トランジスタのbaseピンに接続したピン番号
 powermodeはトランジスタの種類によって決まります
+
   NPNトランジスタはLOW Activeなので"POWER_LOWACTIVE"
+  
   PNPトランジスタやフォトリレーではHIGH Activeなので"POWER_HIGHACTIVE"
+  
   を指定します。
 
 Loop関数内で
 Read()を実行します。実行中は約220msぐらい待ち時間が発生します。
 戻り値はTrueが計測成功、Falseが失敗です。
 計測に成功した場合、その後に
+
 GetEC_uScM(void);
+
 GetEC_dSM(void);
+
 GetWaterTemp(void);
+
 を実行することでECと水温を取得できます。
 測定に失敗していた場合、過去に測定に成功したときの値が残っています。
 一度も測定に成功していない場合、負数が返されます。
