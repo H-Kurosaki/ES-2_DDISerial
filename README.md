@@ -72,14 +72,21 @@ The Arduino bus does not have enough power even for 5V models slightly, so commu
 Be sure to supply more than 50mA of power, such as transistors (20mA as per manual is not enough).
 The unit of the number is uS/cm, but to convert it to the common dS/m, divide by 1000.
 Two corresponding functions are provided.
+
 double GetEC_uScM(void); returns EC in uS/cm
+
 double GetEC_dSM(void); returns EC in dS/m
 
 How to use
+
 The ES-2 connections are
+
 Ground - Arduino GND pin
+
 DATA - Direct connection to any Arduino digital input pin
+
 Power - 5V output device such as collector output of PNP transistor
+
 Transistor base pin - Resistor - Arduino digital output pin
 
 Execute the begin(int datapin,int powerpin,bool powermode) function in the Setup function.
@@ -93,9 +100,13 @@ In the Loop function, execute
 Read() is executed. While executing the Read() function, a wait time of about 220 ms is generated.
 The return value is True for a successful measurement and False for a failed measurement.
 If the measurement succeeds, the following functions can be used.
+
 GetEC_uScM(void);
+
 GetEC_dSM(void);
+
 GetWaterTemp(void);
+
 can be executed to obtain the EC and water temperature.
 If the measurement has failed, the values from a previous successful measurement remain.
 If the measurement has never succeeded, a negative number is returned.
