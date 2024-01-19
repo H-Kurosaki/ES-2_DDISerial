@@ -61,10 +61,15 @@ Read()再実行には1秒以上待ってください。
 
 METER(Former Company Name:Decagon) 
 ES-2 Electrical Conductivity Sensor
+
 DDI Serial Libraly for Arduino
+
 Supported platforms:
+
   Arduino UNO R3(Not R4)
+  
   Arduino Mega 2560 R3 etc.
+  
 Only Arduino with AVR microcontroller driven by other 5V 16MHz is supported.
 
 It is slow instead of using any interrupts; it takes approximately 220 msec to execute a read.
