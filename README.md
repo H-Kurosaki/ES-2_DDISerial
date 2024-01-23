@@ -54,8 +54,7 @@ GetWaterTemp(void);
 を実行することでECと水温を取得できます。
 測定に失敗していた場合、過去に測定に成功したときの値が残っています。
 一度も測定に成功していない場合、負数が返されます。
-連続した実行はできません。
-Read()再実行には1秒以上待ってください。
+連続した実行はできません。少し待ち時間を入れてください。
 
 -------------------------------------------------------English
 
@@ -118,4 +117,3 @@ can be executed to obtain the EC and water temperature.
 If the measurement has failed, the values from a previous successful measurement remain.
 If the measurement has never succeeded, a negative number is returned.
 Consecutive runs are not allowed.
-Wait at least 1 second for Read() reexecution.
