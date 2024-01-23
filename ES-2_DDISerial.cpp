@@ -46,7 +46,7 @@ char res[MAX_STR_BUFFER];
   {
       //wait
       if(timecount+200>millis()||timecount>millis())
-        {return false;}//time out
+        {digitalWrite(ppin,!pmode);return false;}//time out
   }
 
 delayMicroseconds(100);//パルスが上がりきるのを待つ
