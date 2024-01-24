@@ -35,26 +35,27 @@ bool ES2::Read(void)
 bool bit[MAX_BITS];
 char res[MAX_STR_BUFFER];
   if (millis()>(4294967295-300))
-    {delay(301);}
+    {delay(310);}
 
   int i;
   unsigned long timecount=millis();
   digitalWrite(ppin,pmode);//Power ON
   delay(1);
   //センサーの応答を待つ
-  while(digitalRead(2))
+  while(digitalRead(dpin))
   {
       //wait
-      if(timecount+200>millis()||timecount>millis())
-        {return false;}//time out
+      if(timecount+150>millis()||timecount>millis())
+        {digitalWrite(ppin,!pmode);return false;}//time out
   }
+	timecount=millis();
 
-delayMicroseconds(50);//パルスが上がりきるのを待つ
+delayMicroseconds(150);//パルスが上がりきるのを待つ(インピーダンスにより最適値が変化します)
 //パルスを記録する
 for(i=0;i<MAX_BITS;i++)
   {
-    bit[i]=digitalRead(2);
-    delayMicroseconds(830);//1200bps bit width(正確には833だが4単位でしか計測できないので)
+    bit[i]=digitalRead(dpin);
+    delayMicroseconds(828);//1200bps bit width(正確には833だが4単位でしか計測できないので)
   }
   digitalWrite(ppin,!pmode);//Power OFF
 //ヘッダのbit000000000000を飛ばす
@@ -89,9 +90,9 @@ for(i;i<MAX_BITS;i++)
   bitcount++;
   if(bitcount==10)
       {
-      //if(value==0x09){Serial.print("<TAB>");}
-      //else if(value==0x0D){Serial.print("<CR>");}
-      //else{Serial.print((char)value);}
+      if(value==0x09){Serial.print("<TAB>");}
+      else if(value==0x0D){Serial.print("<CR>");}
+      else{Serial.print((char)value);}
       if(value=='\t'){lastTAB=wp;}//TABはデータ先頭
       if(value==0x20){lastSPC=wp;}//スペースはECの末端(温度の先頭)
       if(value=='\r'){lastCR=wp;}//\rは2回出てくるが後のがデータ末端
