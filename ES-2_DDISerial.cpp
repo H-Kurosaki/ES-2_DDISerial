@@ -35,7 +35,7 @@ bool ES2::Read(void)
 bool bit[MAX_BITS];
 char res[MAX_STR_BUFFER];
   if (millis()>(4294967295-300))
-    {delay(301);}
+    {delay(310);}
 
   int i;
   unsigned long timecount=millis();
@@ -45,11 +45,12 @@ char res[MAX_STR_BUFFER];
   while(digitalRead(dpin))
   {
       //wait
-      if(timecount+200>millis()||timecount>millis())
+      if(timecount+150>millis()||timecount>millis())
         {digitalWrite(ppin,!pmode);return false;}//time out
   }
+	timecount=millis();
 
-delayMicroseconds(100);//パルスが上がりきるのを待つ
+delayMicroseconds(200);//パルスが上がりきるのを待つ(インピーダンスにより最適値が変化します)
 //パルスを記録する
 for(i=0;i<MAX_BITS;i++)
   {
