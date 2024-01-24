@@ -13,6 +13,7 @@ pmode=powermode;
   delay(200);
   LastEC_uScm=-1;
   LastWaterTemp=-999;
+  plusewait=64;
 }
 //--------------------------------------------------------------------
 double ES2::GetEC_uScM(void)
@@ -37,6 +38,8 @@ char res[MAX_STR_BUFFER];
   if (millis()>(4294967295-300))
     {delay(310);}
 
+	if(plusewait>320){plusewait=64;}
+
   int i;
   unsigned long timecount=millis();
   digitalWrite(ppin,pmode);//Power ON
@@ -50,7 +53,7 @@ char res[MAX_STR_BUFFER];
   }
 	timecount=millis();
 
-delayMicroseconds(150);//パルスが上がりきるのを待つ(インピーダンスにより最適値が変化します)
+delayMicroseconds(plusewait);//パルスが上がりきるのを待つ(エラー時に値を変更しながらキャリブレーションします)
 //パルスを記録する
 for(i=0;i<MAX_BITS;i++)
   {
@@ -69,7 +72,11 @@ for(i;i<MAX_BITS;i++)
 for(i;i<MAX_BITS-20;i++)
   {
     if(bit[i]==false && bit[i+9]==true &&bit[i+10]==false && bit[i+19]==true){break;}    
-    if(i>100){return false;}//データの先頭が見つからない
+    if(i>100)//データの先頭が見つからない
+    			{
+    			plusewait+=64;//待ち時間を変更
+    			return false;
+    			}
   }
 
 //Serial.println(i);
@@ -104,7 +111,7 @@ for(i;i<MAX_BITS;i++)
   }
   res[MAX_STR_BUFFER-1]=0;//突き抜けないようにバッファの末端を0で止める
   
-  if(lastSPC==0||lastCR==0){return false;}//フォーマットに従った文字列が見つからない
+  if(lastSPC==0||lastCR==0){plusewait+=48;return false;}//フォーマットに従った文字列が見つからない
   //チェックサム確認
   if(TestChecksum(res))
       {
@@ -112,6 +119,7 @@ for(i;i<MAX_BITS;i++)
       }
   else
       {
+        plusewait+=64;//待ち時間を変更
         return false;//チェックサム照合に失敗
       }
 

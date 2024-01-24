@@ -38,6 +38,7 @@ bool TestChecksum(char *response);
 int dpin;
 int ppin;
 bool pmode;
+unsigned int plusewait;
 };
 
 
