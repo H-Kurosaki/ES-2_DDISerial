@@ -31,8 +31,11 @@ Power - PNPトランジスタのコレクタ出力など5V出力可能なデバ�
 
 
 Setup関数内でbegin(int datapin,int powerpin,bool powermode)関数を実行します。
+
 datapinにDATAを接続したピン番号
+
 powerpinには電源制御トランジスタのbaseピンに接続したピン番号
+
 powermodeはトランジスタの種類によって決まります
 
   NPNトランジスタはLOW Activeなので"POWER_LOWACTIVE"
