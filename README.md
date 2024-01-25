@@ -57,6 +57,10 @@ GetWaterTemp(void);
 一度も測定に成功していない場合、負数が返されます。
 連続した実行はできません。少し待ち時間を入れてください。
 
+追記：
+
+センサの個体差やインピーダンスの差によりエラーが出る場合に信号のタイミングを自動調整する機能を付けました。
+最初に何回か読み出しに失敗しても徐々に調整がかかります(暫定措置)
 -------------------------------------------------------English
 
 METER(Former Company Name:Decagon) 
@@ -118,3 +122,8 @@ can be executed to obtain the EC and water temperature.
 If the measurement has failed, the values from a previous successful measurement remain.
 If the measurement has never succeeded, a negative number is returned.
 Consecutive runs are not allowed.
+
+Postscript:
+
+Added a function to automatically adjust signal timing when errors occur due to individual sensor differences or impedance differences.
+The adjustment is made gradually even if the readout fails several times at first (tentative measure).
